@@ -1,8 +1,12 @@
 <?php
 
-namespace Apl\Database;
+namespace Emmetog\Database;
 
-class MysqliConnection extends \Apl\Database\Connection
+use Emmetog\Database\Connection;
+use Emmetog\Database\ConnectionInvalidParamNameException;
+use Emmetog\Database\ConnectionInvalidValueTypeException;
+
+class MysqliConnection extends Connection
 {
 
     private $connection;
@@ -43,24 +47,24 @@ class MysqliConnection extends \Apl\Database\Connection
 
     public function bindValue($param, $value, $type) {
 	if (':' != substr($param, 0, 1)) {
-	    throw new \Apl\Database\ConnectionInvalidParamNameException('Param must start with the \':\' character');
+	    throw new ConnectionInvalidParamNameException('Param must start with the \':\' character');
 	}
 
 	switch ($type) {
-	    case \Apl\Database\Connection::TYPE_INTEGER:
+	    case Connection::TYPE_INTEGER:
 		$this->boundValues[$param] = $value;
 		break;
-	    case \Apl\Database\Connection::TYPE_STRING:
+	    case Connection::TYPE_STRING:
 		$this->boundValues[$param] = '"' . $value . '"';
 		break;
-	    case \Apl\Database\Connection::TYPE_DATE:
+	    case Connection::TYPE_DATE:
 		$this->boundValues[$param] = '"' . $value . '"';
 		break;
-	    case \Apl\Database\Connection::TYPE_BOOLEAN:
+	    case Connection::TYPE_BOOLEAN:
 		$this->boundValues[$param] = (string) (boolean) $value;
 		break;
 	    default:
-		throw new \Apl\Database\ConnectionInvalidValueTypeException('Value type must be one of the TYPE_* constants');
+		throw new ConnectionInvalidValueTypeException('Value type must be one of the TYPE_* constants');
 		break;
 	}
     }

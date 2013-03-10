@@ -12,5 +12,18 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": { "Emmetog\\Database\\": "src" }
-    }
+    },
+    "require": {
+        "emmetog/config":		    "@dev"
+    },
+    "repositories": [
+        {
+            "type":                         "vcs",
+            "url":                          "https://github.com/emmetog/config.git"
+        },
+        {
+            "type":                         "vcs",
+            "url":                          "https://github.com/emmetog/config.git"
+        }
+    ]
 }

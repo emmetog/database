@@ -1,38 +1,42 @@
 <?php
 
-namespace Apl\Database;
+namespace Emmetog\Database;
+
+use Emmetog\Model\MockDbModel;
+use Emmetog\Config\Config;
+use Emmetog\Config\ConfigForMocking;
 
 class MockDb
 {
 
     /**
-     * @var \Apl\Config\Config 
+     * @var Config 
      */
     private $config;
     
     /**
-     * @var \Apl\Model\MockDbModel 
+     * @var MockDbModel 
      */
     private $mockDbModelReal;
     
     /**
-     * @var \Apl\Model\MockDbModel 
+     * @var MockDbModel 
      */
     private $mockDbModelTest;
 
     const INPUT_FORMAT_ARRAY = 500;
     const INPUT_FORMAT_CONSOLE = 501;
 
-    public function __construct(\Apl\Config\ConfigForMocking $config, \Apl\Config\Config $real_config=null)
+    public function __construct(ConfigForMocking $config, Config $real_config=null)
     {
         $this->config = $config;
         
         if(!$real_config) {
-            $real_config = new \Apl\Config\Config();
+            $real_config = new Config();
         }
 
-        $this->mockDbModelReal = $config->getClass(\Apl\Model\MockDbModel);
-        $this->mockDbModelTest = new \Apl\Model\MockDbModel($this->config);
+        $this->mockDbModelReal = $config->getClass(MockDbModel);
+        $this->mockDbModelTest = new MockDbModel($this->config);
     }
 
     public function mockTable($table_name, $data,

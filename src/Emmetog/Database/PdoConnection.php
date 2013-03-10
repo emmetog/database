@@ -1,8 +1,13 @@
 <?php
 
-namespace Apl\Database;
+namespace Emmetog\Database;
 
-class PdoConnection extends \Apl\Database\Connection
+use Emmetog\Database\Connection;
+use Emmetog\Database\ConnectionException;
+use Emmetog\Database\ConnectionInvalidQueryException;
+use Emmetog\Database\ConnectionInvalidValueTypeException;
+
+class PdoConnection extends Connection
 {
 
     private $readQueryTypes = array(
@@ -127,7 +132,7 @@ class PdoConnection extends \Apl\Database\Connection
 
         if (!$type)
         {
-            throw new \Apl\Database\ConnectionInvalidQueryException('The query is of an unknown type: ' . $query);
+            throw new ConnectionInvalidQueryException('The query is of an unknown type: ' . $query);
         }
 
         $this->queryType = $type;
@@ -140,32 +145,32 @@ class PdoConnection extends \Apl\Database\Connection
         {
             switch ($param['type'])
             {
-                case \Apl\Database\Connection::TYPE_INTEGER:
+                case Connection::TYPE_INTEGER:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], $this->escape((int) $param['value']), $this->query
                     );
                     break;
-                case \Apl\Database\Connection::TYPE_STRING:
+                case Connection::TYPE_STRING:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], '\'' . $this->escape((string) $param['value']) . '\'', $this->query
                     );
                     break;
-                case \Apl\Database\Connection::TYPE_IDENTIFIER:
+                case Connection::TYPE_IDENTIFIER:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], '`' . $this->escape((string) $param['value']) . '`', $this->query
                     );
                     break;
-                case \Apl\Database\Connection::TYPE_BOOLEAN:
+                case Connection::TYPE_BOOLEAN:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], '\'' . $this->escape($param['value']) . '\'', $this->query
                     );
                     break;
-                case \Apl\Database\Connection::TYPE_DATE:
+                case Connection::TYPE_DATE:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], '\'' . $this->escape((string) $param['value']) . '\'', $this->query
                     );
                     break;
-                case \Apl\Database\Connection::TYPE_RAW:
+                case Connection::TYPE_RAW:
                     $this->query = str_replace(
                             ':' . $param['placeholder'], $param['value'], $this->escape((string) $this->query)
                     );
@@ -190,7 +195,7 @@ class PdoConnection extends \Apl\Database\Connection
         }
         else
         {
-            throw new \Apl\Database\ConnectionException('The prepare() method must be called before execute()');
+            throw new ConnectionException('The prepare() method must be called before execute()');
         }
         
         $pdo = \Apl\Cache\Registry::get($connection['key']);
@@ -232,7 +237,7 @@ class PdoConnection extends \Apl\Database\Connection
 
         if ($error_info[0] != '00000')
         {
-            throw new \Apl\Database\ConnectionException('Database error: ' . $error_info[2]);
+            throw new ConnectionException('Database error: ' . $error_info[2]);
         }
 
 //	echo "The return was: " . PHP_EOL;

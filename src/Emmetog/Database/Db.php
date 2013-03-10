@@ -1,6 +1,6 @@
 <?php
 
-namespace Apl\Database;
+namespace Emmetog\Database;
 
 class Db
 {

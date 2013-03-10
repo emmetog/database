@@ -1,8 +1,11 @@
 <?php
 
-namespace Apl\Database;
+namespace Emmetog\Database;
 
-abstract class Connection implements \Apl\Database\ConnectionInterface
+use Emmetog\Database\ConnectionInterface;
+use Emmetog\Config\Config;
+
+abstract class Connection implements ConnectionInterface
 {
 
     const TYPE_INTEGER = 101;
@@ -13,11 +16,11 @@ abstract class Connection implements \Apl\Database\ConnectionInterface
     const TYPE_RAW = 106;
 
     /**
-     * @var \Apl\Config\Config
+     * @var Config
      */
     protected $config;
 
-    final public function __construct(\Apl\Config\Config $config)
+    final public function __construct(Config $config)
     {
         $this->config = $config;
     }
@@ -29,22 +32,22 @@ class ConnectionException extends \Exception
     
 }
 
-class ConnectionInvalidValueTypeException extends \Apl\Database\ConnectionException
+class ConnectionInvalidValueTypeException extends ConnectionException
 {
     
 }
 
-class ConnectionInvalidParamNameException extends \Apl\Database\ConnectionException
+class ConnectionInvalidParamNameException extends ConnectionException
 {
     
 }
 
-class ConnectionInvalidQueryException extends \Apl\Database\ConnectionException
+class ConnectionInvalidQueryException extends ConnectionException
 {
     
 }
 
-class ConnectionQueryNotPreparedException extends \Apl\Database\ConnectionException
+class ConnectionQueryNotPreparedException extends ConnectionException
 {
     
 }
