@@ -1,0 +1,103 @@
+{
+    "hash": "9f9722697fb5fc58f38176c3094a3c13",
+    "packages": [
+        {
+            "name": "emmetog/cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emmetog/cache.git",
+                "reference": "98de222799c643736d88f66e36fa90fab763ad75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emmetog/cache/zipball/98de222799c643736d88f66e36fa90fab763ad75",
+                "reference": "98de222799c643736d88f66e36fa90fab763ad75",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Emmetog\\Cache\\": "src"
+                }
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Emmet O'Grady",
+                    "email": "emmet789@gmail.com"
+                }
+            ],
+            "description": "Classes that act as caches",
+            "keywords": [
+                "cache"
+            ],
+            "support": {
+                "source": "https://github.com/emmetog/cache/tree/master",
+                "issues": "https://github.com/emmetog/cache/issues"
+            },
+            "time": "2013-03-10 01:31:31"
+        },
+        {
+            "name": "emmetog/config",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emmetog/config.git",
+                "reference": "34558eb0d01db89c045e933419068c7543eec5ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emmetog/config/zipball/34558eb0d01db89c045e933419068c7543eec5ba",
+                "reference": "34558eb0d01db89c045e933419068c7543eec5ba",
+                "shasum": ""
+            },
+            "require": {
+                "emmetog/cache": "@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Emmetog\\Config\\": "src"
+                }
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Emmet O'Grady",
+                    "email": "emmet789@gmail.com"
+                }
+            ],
+            "description": "Makes loading and using config files easier",
+            "keywords": [
+                "config"
+            ],
+            "support": {
+                "source": "https://github.com/emmetog/config/tree/master",
+                "issues": "https://github.com/emmetog/config/issues"
+            },
+            "time": "2013-03-10 16:59:07"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "emmetog/config": 20,
+        "emmetog/cache": 20
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}

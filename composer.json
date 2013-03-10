@@ -14,7 +14,8 @@
         "psr-0": { "Emmetog\\Database\\": "src" }
     },
     "require": {
-        "emmetog/config":		    "@dev"
+        "emmetog/config":		    "@dev",
+        "emmetog/cache":		    "@dev"
     },
     "repositories": [
         {
@@ -23,7 +24,7 @@
         },
         {
             "type":                         "vcs",
-            "url":                          "https://github.com/emmetog/config.git"
+            "url":                          "https://github.com/emmetog/cache.git"
         }
     ]
 }

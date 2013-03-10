@@ -6,6 +6,7 @@ use Emmetog\Database\Connection;
 use Emmetog\Database\ConnectionException;
 use Emmetog\Database\ConnectionInvalidQueryException;
 use Emmetog\Database\ConnectionInvalidValueTypeException;
+use Emmetog\Cache\Registry;
 
 class PdoConnection extends Connection
 {
@@ -198,7 +199,7 @@ class PdoConnection extends Connection
             throw new ConnectionException('The prepare() method must be called before execute()');
         }
         
-        $pdo = \Apl\Cache\Registry::get($connection['key']);
+        $pdo = Registry::get($connection['key']);
         
         if (is_null($pdo))
         {
@@ -209,7 +210,7 @@ class PdoConnection extends Connection
                     array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
 
-            \Apl\Cache\Registry::set($connection['key'], $pdo);
+            Registry::set($connection['key'], $pdo);
         }
 
         $this->statement = $pdo->prepare($this->query);
