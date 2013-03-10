@@ -1,0 +1,16 @@
+{
+    "name": "emmetog/database",
+    "description": "A library to manage database connections",
+    "license": "GPL-3.0",
+    "keywords": [ "database", "connection", "mysql", "pdo" ],
+    "authors": [
+        {
+            "name": "Emmet O'Grady",
+            "email": "emmet789@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": { "Emmetog\\Database\\": "src" }
+    }
+}
