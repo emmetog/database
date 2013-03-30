@@ -48,38 +48,38 @@ class PdoConnection extends Connection
     public function connect($profile)
     {
         $profile_config = (empty($profile)) ?
-            $this->config->getDatabaseConfig($this->profile) :
-            $this->config->getDatabaseConfig($profile);
+                $this->config->getDatabaseConfig($this->profile) :
+                $this->config->getDatabaseConfig($profile);
 
         $write_config = array_shift($profile_config['write']);
         $read_config = array_shift($profile_config['read']);
-        
+
         // Set default values
         $config_defaults = array(
-            'hostname'  => 'default',
-            'database'  => 'default',
-            'username'  => 'default',
-            'password'  => 'default',
-            'port'      => 3306,
-            'socket'    => '/tmp/mysql.sock',
+            'hostname' => 'default',
+            'database' => 'default',
+            'username' => 'default',
+            'password' => 'default',
+            'port' => 3306,
+            'socket' => '/tmp/mysql.sock',
         );
-        
+
         $read_config = array_replace($config_defaults, $read_config);
         $write_config = array_replace($config_defaults, $write_config);
-        
+
         $key = 'db' . md5(
                         $read_config['hostname'] . $read_config['database']
                         . $read_config['username'] . $read_config['password']
                         . $read_config['port'] . $read_config['socket']
         );
         $this->readConnectionRegistryConfig = array(
-            'key'           => $key,
-            'hostname'      => $read_config['hostname'],
-            'database'      => $read_config['database'],
-            'username'      => $read_config['username'],
-            'password'      => $read_config['password'],
-            'port'          => $read_config['port'],
-            'socket'        => $read_config['socket'],
+            'key' => $key,
+            'hostname' => $read_config['hostname'],
+            'database' => $read_config['database'],
+            'username' => $read_config['username'],
+            'password' => $read_config['password'],
+            'port' => $read_config['port'],
+            'socket' => $read_config['socket'],
         );
 
         $key = 'db' . md5(
@@ -88,13 +88,13 @@ class PdoConnection extends Connection
                         . $write_config['port'] . $write_config['socket']
         );
         $this->writeConnectionRegistryConfig = array(
-            'key'           => $key,
-            'hostname'      => $write_config['hostname'],
-            'database'      => $write_config['database'],
-            'username'      => $write_config['username'],
-            'password'      => $write_config['password'],
-            'port'          => $write_config['port'],
-            'socket'        => $write_config['socket'],
+            'key' => $key,
+            'hostname' => $write_config['hostname'],
+            'database' => $write_config['database'],
+            'username' => $write_config['username'],
+            'password' => $write_config['password'],
+            'port' => $write_config['port'],
+            'socket' => $write_config['socket'],
         );
     }
 
@@ -198,19 +198,16 @@ class PdoConnection extends Connection
         {
             throw new ConnectionException('The prepare() method must be called before execute()');
         }
-        
-        $pdo = Registry::get($connection['key']);
-        
+
+        $pdo = Registry::getInstance()->get($connection['key']);
+
         if (is_null($pdo))
         {
             $pdo = new \PDO(
-                    'mysql:host=' . $connection['hostname'] . ';dbname=' . $connection['database'],
-                    $connection['username'],
-                    $connection['password'],
-                    array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
+                    'mysql:host=' . $connection['hostname'] . ';dbname=' . $connection['database'], $connection['username'], $connection['password'], array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
 
-            Registry::set($connection['key'], $pdo);
+            Registry::getInstance()->set($connection['key'], $pdo);
         }
 
         $this->statement = $pdo->prepare($this->query);
@@ -274,6 +271,43 @@ class PdoConnection extends Connection
         return $string;
     }
 
+    /**
+     * Gets the id of the last inserted record.
+     * 
+     * @throws 
+     * 
+     * @return integer
+     */
+    public function getLastInsertId()
+    {
+        /**
+         * @todo Cache the return value of this in a private static var.
+         */
+        $sql = <<<SQL
+SELECT LAST_INSERT_ID() AS last_insert_id
+SQL;
+
+        $this->prepare($sql, 'Gets the last insert id');
+
+        $result = $this->execute();
+        
+        if(!is_numeric($result[0]['last_insert_id']) || $result[0]['last_insert_id'] < 1) {
+            throw new PdoConnectionNoPreviousInsertException();
+        }
+
+        return $result[0]['last_insert_id'];
+    }
+
+}
+
+class PdoConnectionException extends \Exception
+{
+    
+}
+
+class PdoConnectionNoPreviousInsertException extends PdoConnectionException
+{
+    
 }
 
 ?>

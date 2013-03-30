@@ -13,6 +13,8 @@ interface ConnectionInterface {
      public function bindParam($param, $value, $type);
      
      public function execute();
+     
+     public function getLastInsertId();
     
 }
 ?>

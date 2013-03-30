@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/emmetog/cache.git",
-                "reference": "98de222799c643736d88f66e36fa90fab763ad75"
+                "reference": "d03afe9078e868986bfcd13ea5f9af41b540acc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emmetog/cache/zipball/98de222799c643736d88f66e36fa90fab763ad75",
-                "reference": "98de222799c643736d88f66e36fa90fab763ad75",
+                "url": "https://api.github.com/repos/emmetog/cache/zipball/d03afe9078e868986bfcd13ea5f9af41b540acc9",
+                "reference": "d03afe9078e868986bfcd13ea5f9af41b540acc9",
                 "shasum": ""
             },
             "type": "library",
@@ -38,7 +38,7 @@
                 "source": "https://github.com/emmetog/cache/tree/master",
                 "issues": "https://github.com/emmetog/cache/issues"
             },
-            "time": "2013-03-10 01:31:31"
+            "time": "2013-03-28 20:31:46"
         },
         {
             "name": "emmetog/config",
@@ -46,12 +46,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/emmetog/config.git",
-                "reference": "34558eb0d01db89c045e933419068c7543eec5ba"
+                "reference": "4cff22560ddd21c9dbe4a7c3016410bea604158d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emmetog/config/zipball/34558eb0d01db89c045e933419068c7543eec5ba",
-                "reference": "34558eb0d01db89c045e933419068c7543eec5ba",
+                "url": "https://api.github.com/repos/emmetog/config/zipball/4cff22560ddd21c9dbe4a7c3016410bea604158d",
+                "reference": "4cff22560ddd21c9dbe4a7c3016410bea604158d",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
                 "source": "https://github.com/emmetog/config/tree/master",
                 "issues": "https://github.com/emmetog/config/issues"
             },
-            "time": "2013-03-10 16:59:07"
+            "time": "2013-03-28 20:33:08"
         }
     ],
     "packages-dev": [
