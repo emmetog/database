@@ -15,7 +15,6 @@ class PdoConnection extends Connection
         'show tables',
         'show create table',
         'select',
-        'last_insert_id',
     );
     private $writeQueryTypes = array(
         'create table',
