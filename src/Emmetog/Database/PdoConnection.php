@@ -49,9 +49,7 @@ class PdoConnection extends Connection
 
     public function connect($profile)
     {
-        $profile_config = (empty($profile)) ?
-                $this->config->getDatabaseConfig($this->profile) :
-                $this->config->getDatabaseConfig($profile);
+        $profile_config = $this->config->getDatabaseConfig($profile);
 
         $write_config = array_shift($profile_config['write']);
         $read_config = array_shift($profile_config['read']);
@@ -99,6 +97,16 @@ class PdoConnection extends Connection
             'socket' => $write_config['socket'],
         );
     }
+    
+    /**
+     * Checks if there is an open connection.
+     * 
+     * @return boolean
+     */
+    public function isConnected()
+    {
+        return !empty($this->writeConnectionRegistryConfig) && !empty($this->readConnectionRegistryConfig);
+    }
 
     public function setOptions($options)
     {
@@ -144,6 +152,11 @@ class PdoConnection extends Connection
 
     public function execute()
     {
+        if(!$this->isConnected())
+        {
+            $this->connect('default');
+        }
+        
         foreach ($this->boundParams as $param)
         {
             switch ($param['type'])
@@ -214,10 +227,7 @@ class PdoConnection extends Connection
 
         $this->statement = $pdo->prepare($this->query);
 
-//        echo "Executing query: " . $this->description . "\n" . $this->query . PHP_EOL;
         $success = $this->statement->execute();
-
-//	echo "The query type was " . $this->queryType . ' and the connection key is: '.$this->key.PHP_EOL;
 
         switch ($this->queryType)
         {
@@ -239,9 +249,6 @@ class PdoConnection extends Connection
         {
             throw new ConnectionException('Database error: ' . $error_info[2]);
         }
-
-//	echo "The return was: " . PHP_EOL;
-//	var_dump($return);
 
         return $return;
     }
@@ -283,7 +290,7 @@ class PdoConnection extends Connection
     public function getLastInsertId()
     {
         /**
-         * @todo Cache the return value of this in a private static var.
+         * @todo Cache the return value of this in the Registry.
          */
         $sql = <<<SQL
 SELECT LAST_INSERT_ID() AS last_insert_id
